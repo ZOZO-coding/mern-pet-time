@@ -51,7 +51,9 @@ const createPet = async (req, res) => {
 
     // create a new pet document in the collection
     try {
-        const pet = await Pet.create({name, age, breed, personality})
+        // when we logging in/signning up, we add the user property to the request, so we can use the '_id' here
+        const user_id = req.user._id
+        const pet = await Pet.create({name, age, breed, personality, user_id})
         // once created, send back the json object
         res.status(200).json(pet)
     } catch (error) {
